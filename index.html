@@ -21,22 +21,22 @@
     <script>
       // example.com/productID=12345?campaignId=54321&affiliateId=98765
       //configure the SDK
-      var Countly = Countly || {};
-      Countly.q = Countly.q || [];
-      Countly.app_key = "95e0ac9e98f517c42de2ef184a98f2156124c14a";
-      Countly.url = "https://analytics.ovonts.com";
 
-      // Countly.q.push(["track_sessions"]);
-      // Countly.q.push(['track_pageview']);
+      var Ovonts = Ovonts || {};
+      Ovonts.q = Ovonts.q || [];
+      Ovonts.app_key = "95e0ac9e98f517c42de2ef184a98f2156124c14a";
+      Ovonts.url = "https://analytics.ovonts.com";
+
+      // Ovonts.q.push(["track_sessions"]);
+      // Ovonts.q.push(['track_pageview']);
 
       !(function () {
         var o = document.createElement("script");
         (o.type = "text/javascript"),
           (o.async = !0),
-          (o.src =
-            "https://cdn.jsdelivr.net/npm/countly-sdk-web@latest/lib/countly.min.js"),
+          (o.src = "a.js"),
           (o.onload = function () {
-            Countly.init();
+            Ovonts.init();
           });
         var e = document.getElementsByTagName("script")[0];
         e.parentNode.insertBefore(o, e);
@@ -288,12 +288,26 @@
       const searchObj = {
         categories: ["1", "2"],
         value: "shirt",
-        rating: ["4","5"],
+        rating: ["4", "5"],
         min_price: "400",
         max_price: "1400",
         brands: ["ZARA", "Allensoly"],
         discount: "100",
         offer: "some offer id",
+      };
+
+      const eventDataOb = {
+        eventName: "",
+        eventData: "",
+      };
+
+      const setEventData = (data) => {
+        if (data === "eventName") {
+          eventDataOb.eventName = document.getElementById("eventName").value;
+        }
+        if (data === "eventData") {
+          eventDataOb.eventData = document.getElementById("eventData").value;
+        }
       };
     </script>
   </head>
@@ -403,21 +417,44 @@
         </div>
       </div>
       <div class="div2">
-        <!-- <div class="mb-3" id="">
-        <label for="" class="form-label">CampaignId</label>
-        <input type="text" class="form-control" id="campaignId" aria-describedby=""/>
-        <button type="submit" onclick="handleTraitChange('campaignId')" role="button" class="btn btn-primary">
-          Set
-        </button>
-      </div>
-      <div class="mb-3">
-        <label for="" class="form-label">AffiliatedId</label>
-        <input type="text" class="form-control" id="affiliateId" />
-        <button type="submit" onclick="handleTraitChange('affiliateId')" role="button" class="btn btn-primary">
-          Set
-        </button>
-      </div> -->
         <div>
+          <div class="mb-3">
+            <label for="" class="form-label">EventName:</label>
+            <input type="text" class="form-control" id="eventName" />
+            <button
+              type="submit"
+              onclick="setEventData('eventName')"
+              role="button"
+              class="btn btn-primary"
+            >
+              Set
+            </button>
+          </div>
+
+          <div class="mb-3">
+            <label for="" class="form-label">EventData:</label>
+            <input type="text" class="form-control" id="eventData" />
+            <button
+              type="submit"
+              onclick="setEventData('eventData')"
+              role="button"
+              class="btn btn-primary"
+            >
+              Set
+            </button>
+          </div>
+
+          <div class="mb-3">
+            <button
+              type="submit"
+              onclick="recordEvent(eventDataOb.eventName,eventDataOb.eventData)"
+              role="button"
+              class="btn btn-primary"
+            >
+              Send
+            </button>
+          </div>
+
           <div class="mb-3">
             <label for="" class="form-label">CampaignId:</label>
             <input type="text" class="form-control" id="campaignId" />

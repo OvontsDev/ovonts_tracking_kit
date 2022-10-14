@@ -77,7 +77,7 @@ function parseSearch(searchObj) {
 function productViewed(product) {
   const productDetails = parseProduct(product);
   try {
-    window.Countly.q.push([
+    window.Ovonts.q.push([
       "add_event",
       {
         key: "productViewed",
@@ -104,7 +104,7 @@ function productViewed(product) {
 function productAddedToCart(product, cartId = null) {
   const productDetails = parseProduct(product);
   try {
-    window.Countly.q.push([
+    window.Ovonts.q.push([
       "add_event",
       {
         key: "productAddedToCart",
@@ -132,7 +132,7 @@ function productAddedToCart(product, cartId = null) {
 function productAddedToWishlist(wishlistId = null, product) {
   const productDetails = parseProduct(product);
   try {
-    window.Countly.q.push([
+    window.Ovonts.q.push([
       "add_event",
       {
         key: "productAddedToWishlist",
@@ -160,7 +160,7 @@ function productAddedToWishlist(wishlistId = null, product) {
 function cartViewed(product, cartId = null) {
   const productDetails = parseProduct(product);
   try {
-    window.Countly.q.push([
+    window.Ovonts.q.push([
       "add_event",
       {
         key: "cartViewed",
@@ -192,7 +192,7 @@ function orderPlaced(products, orderObj) {
     products.map((p) => {
       parsedProduct.push(parseProduct(p));
     });
-    window.Countly.q.push([
+    window.Ovonts.q.push([
       "add_event",
       {
         key: "orderPlaced",
@@ -231,7 +231,7 @@ function checkoutStarted(products, chekoutObj) {
     products.map((p) => {
       parsedProduct.push(parseProduct(p));
     });
-    window.Countly.q.push([
+    window.Ovonts.q.push([
       "add_event",
       {
         key: "checkoutStarted",
@@ -263,7 +263,7 @@ function checkoutStarted(products, chekoutObj) {
 //7
 function productRemovedFromCart(cartId = null) {
   try {
-    window.Countly.q.push([
+    window.Ovonts.q.push([
       "add_event",
       {
         key: "productRemovedFromCart",
@@ -292,7 +292,7 @@ function register(registerObj) {
   ovontsSetUserTraits(registerObj);
 
   try {
-    window.Countly.q.push([
+    window.Ovonts.q.push([
       "add_event",
       {
         key: "register",
@@ -316,7 +316,7 @@ function login(loginObj) {
   const loginObject = parseLogin(loginObj);
   ovontsSetUserTraits(loginObj);
   try {
-    window.Countly.q.push([
+    window.Ovonts.q.push([
       "add_event",
       {
         key: "login",
@@ -325,9 +325,9 @@ function login(loginObj) {
           affiliateId: window.affiliateId,
           userId: loginObject?.userId,
           userName: window.ovontsUserName,
-          userPhone: window.ovontsUserMobile, 
-          userAge: window.ovontsUserAge, 
-          userDob: window.ovontsUserDob, 
+          userPhone: window.ovontsUserMobile,
+          userAge: window.ovontsUserAge,
+          userDob: window.ovontsUserDob,
         },
       },
     ]);
@@ -339,7 +339,7 @@ function login(loginObj) {
 function search(search) {
   const searchObj = parseSearch(search);
   try {
-    window.Countly.q.push([
+    window.Ovonts.q.push([
       "add_event",
       {
         key: "search",
@@ -354,6 +354,33 @@ function search(search) {
           search_brands: searchObj?.brands,
           search_discount: searchObj?.discount,
           search_offer: searchObj?.offer,
+        },
+      },
+    ]);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function recordEvent(eventName, data) {
+  console.log(eventName, data);
+  try {
+    window.Ovonts.q.push([
+      "add_event",
+      {
+        key: eventName,
+        segmentation: {
+          userEmail: window.ovontsUserEmail,
+          userName: window.ovontsUserName,
+          userPhone: window.ovontsUserMobile,
+          userDob: window.ovontsUserDob,
+          userFbId: window.ovontsUserFbId,
+          userGoogleId: window.ovontsUserGoogleId,
+          userGoogleAdId: window.ovontsUserGoogleAdId,
+          userHardwareId: window.ovontsUserHardwareId,
+          campaignId: window.campaignId,
+          affiliateId: window.affiliateId,
+          data,
         },
       },
     ]);
