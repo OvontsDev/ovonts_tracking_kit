@@ -24,17 +24,14 @@
 
       var Ovonts = Ovonts || {};
       Ovonts.q = Ovonts.q || [];
-      Ovonts.app_key = "95e0ac9e98f517c42de2ef184a98f2156124c14a";
+      Ovonts.app_key = "YOUR APP KEY";
       Ovonts.url = "https://analytics.ovonts.com";
-
-      // Ovonts.q.push(["track_sessions"]);
-      // Ovonts.q.push(['track_pageview']);
 
       !(function () {
         var o = document.createElement("script");
         (o.type = "text/javascript"),
           (o.async = !0),
-          (o.src = "a.js"),
+          (o.src = "cdnscript.js"),
           (o.onload = function () {
             Ovonts.init();
           });
